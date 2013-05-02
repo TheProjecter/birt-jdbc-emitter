@@ -6,18 +6,27 @@ public class DriverHSQL extends JdbcDriver
 	@Override
 	public String driverName()
 	{
-		return "Oracle JDBC driver";
+		return "HSQL Database Engine Driver";
 	}
 
 	protected String columnTypeSQL( String defalt) 
 	{
 		if (defalt.equals("BYTES"))
-			return "RAW (50)" ; 
-		else if (defalt.startsWith("TIME"))
-			return "TIMESTAMP";
-		else if (defalt.startsWith("VARCHAR") ||  defalt.startsWith("LONGVARCHAR"))
-			return "VARCHAR2(50)";
-		else
+		{
+			return "BINARY"; 
+		}
+        else if ( defalt.equals("NUMERIC(18,0)") )
+        {
+        	// NUMERIC(18,0) does not work for Insert IDENTITY key columns
+            return "BIGINT"; 
+        }
+        else if (defalt.equals("CLOB")) 
+        {
+			return "LONGVARCHAR";
+		}
+        else
+        {
 			return defalt;
+        }
 	}
 }
