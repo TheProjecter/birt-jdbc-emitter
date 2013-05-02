@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: JdbcEmitter
+Bundle-SymbolicName: JdbcEmitter;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: jdbcemitter.Activator
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.birt.report.engine
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: org.apache.commons.codec.binary
+Bundle-ClassPath: lib/ojdbc14.jar,
+ .
