@@ -16,7 +16,7 @@ public abstract class JdbcDriver
 	 
 	static 
 	{
-		JdbcDriver[] ds = new JdbcDriver[] { new DriverHSQL() };
+		JdbcDriver[] ds = new JdbcDriver[] { new DriverHSQL(),new DriverOracle() };
 		for (int dx = 0; dx < ds.length; dx++)
 			ds[dx].registerDriver();
 	}
@@ -79,7 +79,10 @@ public static JdbcDriver getDriverFactory(Connection connection) throws BirtExce
 			{
 				driver = drivers.get(dx);
 				if (driver.driverName().equals(driverName))
+				{
 					driver = driver.getClass().newInstance();
+					break;
+				}
 			}
 		} 
 		catch (SQLException e)

@@ -156,9 +156,8 @@ public class JdbcEmitter implements IContentEmitter
 	public void initialize(IEmitterServices service) throws BirtException 
 	{
 	 	this.service = service;
-	 //	RenderOption.OUTPUT_FILE_NAME = "dbConnection.properties";
-	//	Object fd = service.getOption( RenderOption.OUTPUT_FILE_NAME );
-		Object fd = "D:\\Birt Jars\\workspacebirt\\dbConnection.properties";
+	 	
+		Object fd =service.getOption( JdbcRenderOption.PROPERTY_FILE);
 		File file = null;
 		if ( fd != null )
 		{

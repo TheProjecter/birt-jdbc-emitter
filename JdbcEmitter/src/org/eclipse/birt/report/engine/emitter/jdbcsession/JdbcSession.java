@@ -170,7 +170,12 @@ public class JdbcSession
     	// Set the parameters
 		for (int px = 0; px < params.size(); px++) 
 		{
-		 jdbcPreparedStatement.setObject(px + 1, params.get(px)); 
+			Object param = params.get(px);
+			if(param =="")
+			{
+				param = null;
+			}
+		 jdbcPreparedStatement.setObject(px + 1, param); 
 		}
 		jdbcPreparedStatement.addBatch();
 		} 
@@ -217,11 +222,13 @@ public class JdbcSession
     			{
     	      	executeQuery(" drop table "+tableName);
     	      	isTableCreationSucessful = executeQuery(this.jdbcDriver.getCreateTableSql(tableName,columnNameTypeMap));
+    	      	isTableCreationSucessful = true;
     			}
 	    	}
 	    	else
 	    	{
 	    		isTableCreationSucessful = executeQuery(this.jdbcDriver.getCreateTableSql(tableName,columnNameTypeMap));
+	    		isTableCreationSucessful = true;
 	    	}
 		} 
 		catch (SQLException e1) 
