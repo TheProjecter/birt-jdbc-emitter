@@ -4,7 +4,7 @@ package org.eclipse.birt.report.engine.emitter.jdbcdrivers;
 public class DriverHSQL extends JdbcDriver
 {
 	@Override
-	public String driverName()
+	protected String driverName()
 	{
 		return "HSQL Database Engine Driver";
 	}
