@@ -21,7 +21,7 @@ public abstract class JdbcDriver
 			ds[dx].registerDriver();
 	}
 
- abstract public String driverName();
+ abstract protected String driverName();
  abstract protected String columnTypeSQL(String type);
  public String getCreateTableSql(String name,LinkedHashMap<String,String> columnDetails)
  {
