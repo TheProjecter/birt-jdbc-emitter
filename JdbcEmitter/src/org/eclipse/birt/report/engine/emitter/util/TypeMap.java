@@ -42,6 +42,7 @@ public class TypeMap
 	    	JavaSqlTypeMap.put("LONG", BIGINT);
 	    	JavaSqlTypeMap.put("FLOAT", REAL);
 	    	JavaSqlTypeMap.put("DOUBLE", DOUBLE);
+	    	JavaSqlTypeMap.put("DECIMAL", DOUBLE);
 	    	JavaSqlTypeMap.put("BYTE[]", LONGVARBINARY);
 	    	JavaSqlTypeMap.put("DATE", DATE);
 	    	JavaSqlTypeMap.put("TIME", TIME);
