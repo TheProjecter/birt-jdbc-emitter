@@ -1,3 +1,5 @@
+package Base64;
+
 public class Base64
 {
 	private static final String base64code = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"+"abcdefghijklmnopqrstuvwxyz" + "0123456789" + "+/";
