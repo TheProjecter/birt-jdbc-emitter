@@ -1245,6 +1245,113 @@ where QUANTITYORDERED = 20]]></xml-property>
         </simple-master-page>
     </page-setup>
     <body>
+        <label id="637">
+            <property name="fontWeight">bold</property>
+            <property name="textUnderline">underline</property>
+            <property name="textAlign">center</property>
+            <text-property name="text">Order Table</text-property>
+        </label>
+        <table name="ORDERS_TBL" id="603">
+            <property name="dataSet">Data Set2</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">ORDERNUMBER</property>
+                    <text-property name="displayName">ORDERNUMBER</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["ORDERNUMBER"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">PRODUCTCODE</property>
+                    <text-property name="displayName">PRODUCTCODE</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["PRODUCTCODE"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">QUANTITYORDERED</property>
+                    <text-property name="displayName">QUANTITYORDERED</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["QUANTITYORDERED"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">PRICEEACH</property>
+                    <text-property name="displayName">PRICEEACH</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["PRICEEACH"]</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">ORDERLINENUMBER</property>
+                    <text-property name="displayName">ORDERLINENUMBER</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["ORDERLINENUMBER"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+            </list-property>
+            <column id="632"/>
+            <column id="633"/>
+            <column id="634"/>
+            <column id="635"/>
+            <header>
+                <row id="604">
+                    <cell id="605">
+                        <label id="606">
+                            <text-property name="text">ORDERNUMBER</text-property>
+                        </label>
+                    </cell>
+                    <cell id="607">
+                        <label id="608">
+                            <text-property name="text">PRODUCTCODE</text-property>
+                        </label>
+                    </cell>
+                    <cell id="609">
+                        <label id="610">
+                            <text-property name="text">QUANTITYORDERED</text-property>
+                        </label>
+                    </cell>
+                    <cell id="611">
+                        <label id="612">
+                            <text-property name="text">PRICEEACH</text-property>
+                        </label>
+                    </cell>
+                </row>
+            </header>
+            <detail>
+                <row id="615">
+                    <cell id="616">
+                        <data id="617">
+                            <property name="resultSetColumn">ORDERNUMBER</property>
+                        </data>
+                    </cell>
+                    <cell id="618">
+                        <data id="619">
+                            <property name="resultSetColumn">PRODUCTCODE</property>
+                        </data>
+                    </cell>
+                    <cell id="620">
+                        <data id="621">
+                            <property name="resultSetColumn">QUANTITYORDERED</property>
+                        </data>
+                    </cell>
+                    <cell id="622">
+                        <data id="623">
+                            <property name="resultSetColumn">PRICEEACH</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+            <footer>
+                <row id="626">
+                    <cell id="627"/>
+                    <cell id="628"/>
+                    <cell id="629"/>
+                    <cell id="630"/>
+                </row>
+            </footer>
+        </table>
+        <label id="638">
+            <property name="fontWeight">bold</property>
+            <property name="textUnderline">underline</property>
+            <property name="textAlign">center</property>
+            <text-property name="text">Customer Table</text-property>
+        </label>
         <table name="CUSTOMERS_TABLE" id="400">
             <property name="dataSet">Data Set</property>
             <list-property name="boundDataColumns">
@@ -1496,6 +1603,12 @@ where QUANTITYORDERED = 20]]></xml-property>
                 </row>
             </footer>
         </table>
+        <label id="639">
+            <property name="fontWeight">bold</property>
+            <property name="textUnderline">underline</property>
+            <property name="textAlign">center</property>
+            <text-property name="text">Employee Table</text-property>
+        </label>
         <table name="EMPLOYEE_TABLE" id="483">
             <property name="dataSet">Data Set1</property>
             <list-property name="boundDataColumns">
@@ -1654,101 +1767,6 @@ where QUANTITYORDERED = 20]]></xml-property>
                     <cell id="524"/>
                     <cell id="525"/>
                     <cell id="526"/>
-                </row>
-            </footer>
-        </table>
-        <table name="ORDERS_TBL" id="570">
-            <property name="dataSet">Data Set2</property>
-            <list-property name="boundDataColumns">
-                <structure>
-                    <property name="name">ORDERNUMBER</property>
-                    <text-property name="displayName">ORDERNUMBER</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["ORDERNUMBER"]</expression>
-                    <property name="dataType">integer</property>
-                </structure>
-                <structure>
-                    <property name="name">PRODUCTCODE</property>
-                    <text-property name="displayName">PRODUCTCODE</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["PRODUCTCODE"]</expression>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="name">QUANTITYORDERED</property>
-                    <text-property name="displayName">QUANTITYORDERED</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["QUANTITYORDERED"]</expression>
-                    <property name="dataType">integer</property>
-                </structure>
-                <structure>
-                    <property name="name">PRICEEACH</property>
-                    <text-property name="displayName">PRICEEACH</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["PRICEEACH"]</expression>
-                    <property name="dataType">float</property>
-                </structure>
-                <structure>
-                    <property name="name">ORDERLINENUMBER</property>
-                    <text-property name="displayName">ORDERLINENUMBER</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["ORDERLINENUMBER"]</expression>
-                    <property name="dataType">integer</property>
-                </structure>
-            </list-property>
-            <column id="599"/>
-            <column id="600"/>
-            <column id="601"/>
-            <column id="602"/>
-            <header>
-                <row id="571">
-                    <cell id="572">
-                        <label id="573">
-                            <text-property name="text">ORDERNUMBER</text-property>
-                        </label>
-                    </cell>
-                    <cell id="574">
-                        <label id="575">
-                            <text-property name="text">PRODUCTCODE</text-property>
-                        </label>
-                    </cell>
-                    <cell id="576">
-                        <label id="577">
-                            <text-property name="text">QUANTITYORDERED</text-property>
-                        </label>
-                    </cell>
-                    <cell id="578">
-                        <label id="579">
-                            <text-property name="text">PRICEEACH</text-property>
-                        </label>
-                    </cell>
-                </row>
-            </header>
-            <detail>
-                <row id="582">
-                    <cell id="583">
-                        <data id="584">
-                            <property name="resultSetColumn">ORDERNUMBER</property>
-                        </data>
-                    </cell>
-                    <cell id="585">
-                        <data id="586">
-                            <property name="resultSetColumn">PRODUCTCODE</property>
-                        </data>
-                    </cell>
-                    <cell id="587">
-                        <data id="588">
-                            <property name="resultSetColumn">QUANTITYORDERED</property>
-                        </data>
-                    </cell>
-                    <cell id="589">
-                        <data id="590">
-                            <property name="resultSetColumn">PRICEEACH</property>
-                        </data>
-                    </cell>
-                </row>
-            </detail>
-            <footer>
-                <row id="593">
-                    <cell id="594"/>
-                    <cell id="595"/>
-                    <cell id="596"/>
-                    <cell id="597"/>
                 </row>
             </footer>
         </table>
