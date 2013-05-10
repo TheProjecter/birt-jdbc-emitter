@@ -5,7 +5,7 @@
          point="org.eclipse.birt.report.engine.emitters">
       <emitter
             class="org.eclipse.birt.report.engine.emitter.jdbcemitter.JdbcEmitter"
-            format="Image"
+            format="JdbcEmitter"
             id="org.eclipse.birt.report.engine.emitter.jdbcemitter.JdbcEmitter"
             mimeType="text/xml">
       </emitter>
