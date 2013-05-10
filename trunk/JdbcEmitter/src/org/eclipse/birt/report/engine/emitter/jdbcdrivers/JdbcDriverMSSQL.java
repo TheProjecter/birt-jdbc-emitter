@@ -1,6 +1,5 @@
 package org.eclipse.birt.report.engine.emitter.jdbcdrivers;
 
-
 /**
  * This contains MS SQL Server specific code.
  * 
@@ -12,7 +11,7 @@ public class JdbcDriverMSSQL extends JdbcDriver
 
 	protected String driverName()
 	{
-		return "SQLServer";
+		return "Microsoft JDBC Driver 4.0 for SQL Server";
 	}
 	/** Apparantly need DATETIME instead of TIMESTAMP */
 	@Override protected String columnTypeSQL(String defalt) 
@@ -26,6 +25,12 @@ public class JdbcDriverMSSQL extends JdbcDriver
 			return "DATETIME";
 		else if (defalt.equals("BYTES") )
 			return "IMAGE"; // Ie. just a byte array.
+		else if(defalt.startsWith("LONGVARCHAR"))
+		     return "VARCHAR(8000)";
+		else if(defalt.startsWith("BLOB") || defalt.startsWith("CLOB"))
+		     return "NVARCHAR(4000)";
+		else if(defalt.startsWith("DOUBLE"))
+			return "REAL";
 		else
 			return defalt;
 	}

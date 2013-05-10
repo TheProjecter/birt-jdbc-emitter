@@ -26,16 +26,7 @@ public class PropertyReader
 			String url = props.getProperty(EmitterConstants.DB_URL_PROPERTY);
 			String encodedPassword = props.getProperty(EmitterConstants.USER_PASSWORD_PROPERTY);
 			Boolean appendData = Boolean.parseBoolean(props.getProperty(EmitterConstants.APPEND_DATA));
-			
-			/*if(Boolean.FALSE)
-			{
-				throw new FileNotFoundException("");
-			}
-			 * String driverName = "org.hsqldb.jdbcDriver";
-			String userName = "EMITTER_DB";
-			String url = "jdbc:hsqldb:file:G:\\Download\\hsqldb-2.2.9\\Emitter";
-			String encodedPassword = "d2VsY29tZQ==";
-			Boolean appendData = Boolean.TRUE;*/
+			String dataTypes = props.getProperty(EmitterConstants.DATA_TYPES);
 			
 			// Decode the password
 			byte[] decoded = Base64.decodeBase64(encodedPassword.getBytes());   
@@ -48,7 +39,7 @@ public class PropertyReader
 			connectionProperties.setUserName(userName);
 			connectionProperties.setUrl(url);
 			connectionProperties.setAppendData(appendData);
-			
+			connectionProperties.setDataTypes(dataTypes);
 		} 
 		catch (FileNotFoundException e) 
 		{

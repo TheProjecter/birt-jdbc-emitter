@@ -7,4 +7,5 @@ public class EmitterConstants
 	public static final String USER_PASSWORD_PROPERTY = "Userpassword";
 	public static final String DB_URL_PROPERTY = "connectionURL";
 	public static final String APPEND_DATA = "AppendData";
+	public static final String DATA_TYPES = "DataTypes";
 }

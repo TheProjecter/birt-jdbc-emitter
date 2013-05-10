@@ -3,11 +3,9 @@ package org.eclipse.birt.report.engine.emitter.jdbcdrivers;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map.Entry;
+import java.util.List;
 
 import org.eclipse.birt.core.exception.BirtException;
-import org.eclipse.birt.report.engine.emitter.util.TypeMap;
 
 public abstract class JdbcDriver 
 {
@@ -16,24 +14,35 @@ public abstract class JdbcDriver
 	 
 	static 
 	{
-		JdbcDriver[] ds = new JdbcDriver[] { new DriverHSQL(),new DriverOracle() };
+		JdbcDriver[] ds = new JdbcDriver[] { new JdbcDriverHSQL(),new JdbcDriverOracle(),new JdbcDriverDB2_400(),new JdbcDriverDB2(),
+		new JdbcDriverDerby(),new JdbcDriverFirebird(),new JdbcDriverH2(),new JdbcDriverInformix(),new JdbcDriverInterbase(),
+		new JdbcDriverMSSQL(),new JdbcDriverMySQL(),new JdbcDriverPostgres(),new JdbcDriverSapDB(),new JdbcDriverSybase()
+		};
 		for (int dx = 0; dx < ds.length; dx++)
 			ds[dx].registerDriver();
 	}
 
  abstract protected String driverName();
  abstract protected String columnTypeSQL(String type);
- public String getCreateTableSql(String name,LinkedHashMap<String,String> columnDetails)
+ public String getCreateTableSql(String name,List<String> columnNames,List<String> dataTypes) throws BirtException
  {
+		if (dataTypes == null || dataTypes.size() == 0) 
+		{
+			throw new BirtException("No datatypes configured for table name: "+ name);
+		}
+		if (columnNames.size() != dataTypes.size())
+		{
+			throw new BirtException("Number of columns and number of datatypes are not same.");
+		}
 		String type = null;
 		StringBuilder sql = new StringBuilder(1000);
 		sql.append("\nCREATE TABLE " + name);
 		sql.append("(");
-		for (Entry<String, String> column : columnDetails.entrySet()) 
+		for (int i =0;i<columnNames.size();i++) 
 		{
 			sql.append("\n   ");
-			type = TypeMap.getJdbcTypeCode(column.getValue());
-			sql.append(column.getKey() + "   " + driver.columnTypeSQL(type) );
+			type = dataTypes.get(i);
+			sql.append(columnNames.get(i) + "   " + driver.columnTypeSQL(type) );
 			sql.append(","); 
 		}
 		//Remove extra comma
@@ -41,25 +50,28 @@ public abstract class JdbcDriver
 		sql.append(")");
 		return sql.toString();
  }
- public String getInsertQuerySql(String name,LinkedHashMap<String,String> columnDetails)
+ public String getInsertQuerySql(String name,List<String> columnNames)
  {
 	   StringBuilder sql = new StringBuilder(1000);
-	   sql = insertNoValuesSQL(name, columnDetails, sql);
+	   sql = insertNoValuesSQL(name, columnNames, sql);
 	   sql.append("VALUES ( ");
-		for (int sx = 0; sx < columnDetails.size(); sx++) {
+		for (int sx = 0; sx < columnNames.size(); sx++) 
+		{
 			if (sx > 0)
+			{
 				sql.append(", ");
+			}
 			sql.append("?");
 		}
 		sql.append(")");
 		return sql.toString();
  }
 
- protected StringBuilder insertNoValuesSQL(String tableName,LinkedHashMap<String,String> columnDetails, StringBuilder sql) 
+ protected StringBuilder insertNoValuesSQL(String tableName,List<String> columnNames, StringBuilder sql) 
  {	
 	  sql.append("INSERT INTO ");
 	  sql.append(tableName+" ( ");
-		for (String columnName : columnDetails.keySet()) 
+		for (String columnName : columnNames) 
 		{
 			sql.append(columnName);
 			sql.append(","); 
