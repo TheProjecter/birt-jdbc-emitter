@@ -1,11 +1,16 @@
 package org.eclipse.birt.report.engine.emitter.jdbcsession;
 
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.sql.Connection;
+import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import org.eclipse.birt.core.exception.BirtException;
+import org.eclipse.birt.report.engine.emitter.jdbcdrivers.DriverShim;
 import org.eclipse.birt.report.engine.emitter.jdbcdrivers.JdbcDriver;
 import org.eclipse.birt.report.engine.emitter.util.ConnectionProperties;
 import org.eclipse.birt.report.engine.emitter.util.PropertyReader;
@@ -23,12 +28,23 @@ public class JdbcSession
 		propertReader.loadProperties(propertiesFile);
 		this.properties = propertReader.getConnectionProperties();
 	}
-	private void openConnection( ) throws BirtException
+	private void openConnection(String driverPath ) throws BirtException
 	{
 		try 
 		{
+		    if(driverPath != null && driverPath.trim().length() !=0)
+		    {
+		    	URL u = new URL(driverPath);
+				URLClassLoader ucl = new URLClassLoader(new URL[] { u });
+				Driver d = (Driver)Class.forName(properties.getDriverName(), true, ucl).newInstance();
+				DriverManager.registerDriver(new DriverShim(d));
+		    }
+		    else
+		    {
 			Class.forName(properties.getDriverName());
+		    }
 			connection = DriverManager.getConnection(properties.getUrl(),properties.getUserName(),properties.getDecodedPassword());
+			connection.setAutoCommit(Boolean.FALSE);
 		} 
 		catch (ClassNotFoundException e) 
 		{
@@ -37,6 +53,18 @@ public class JdbcSession
 		catch (SQLException e) 
 		{
 			throw new BirtException("Could not establish the connection "+e.getMessage());
+		} 
+		catch (MalformedURLException e) 
+		{
+			throw new BirtException("Could not establish the connection/MalformedURL "+e.getMessage()+" , driver jar is not accessible "+driverPath);
+		} 
+		catch (InstantiationException e)
+		{
+			throw new BirtException("Could not establish the connection/instantiation "+e.getMessage());
+		} 
+		catch (IllegalAccessException e) 
+		{
+			throw new BirtException("Could not establish the connection/instantiation "+e.getMessage());
 		}
 	}
 	
@@ -71,9 +99,9 @@ public class JdbcSession
 	    	return this.properties;
 	 }
 	 
-	public void start() throws BirtException
+	public void start(String driverPath) throws BirtException
 	{
-		openConnection();
+		openConnection(driverPath);
 		this.jdbcDriver  =  JdbcDriver.getDriverFactory(this.getConnection());
 	}
 	

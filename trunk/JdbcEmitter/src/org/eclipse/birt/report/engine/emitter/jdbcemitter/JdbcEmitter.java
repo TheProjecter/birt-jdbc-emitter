@@ -48,6 +48,7 @@ public class JdbcEmitter implements IContentEmitter
   protected ITableContent table = null;
   private String propertiesFile = null;
   private TableBuilder builder = null;
+  private String driverPath =null;
 
     //ArrayList of columns used in Table in the same order as they appear in Report Design
 	List<String> columnNamesInTableOrder = new ArrayList<String> ();
@@ -56,6 +57,7 @@ public class JdbcEmitter implements IContentEmitter
     public void initialize(IEmitterServices service) throws BirtException 
 	{
 	 	this.service = service;
+	 	this.driverPath = (String) service.getReportContext().getAppContext().get("OdaJDBCDriverClassPath");
 	}
 
 	public void start(IReportContent report) throws BirtException 
@@ -72,7 +74,7 @@ public class JdbcEmitter implements IContentEmitter
 			if (file != null && file.exists())
 			{
 				session = new JdbcSession(file);
-				session.start();
+				session.start(this.driverPath);
 				this.builder = new TableBuilder(session);
 				return;
 			}
